@@ -10,6 +10,7 @@ import StockInForm from './pages/StockInForm';
 import StockOutForm from './pages/StockOutForm';
 import Layout from './components/Layout';
 import RemainingStock from './pages/RemainingStock';
+import './App.css'; 
 
 function App() {
   const [user, setUser] = useState(null);
