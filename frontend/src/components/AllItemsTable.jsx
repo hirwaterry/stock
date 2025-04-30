@@ -22,7 +22,7 @@ function AllItemsTable() {
 
   return (
     <div className="overflow-x-auto">
-      <h2 className="text-lg font-semibold mb-3">All Items</h2>
+      <h2 className="text-lg font-semibold mb-3">All </h2>
       {error && <p className="text-red-500">{error}</p>}
       <table className="min-w-full bg-white border border-gray-300 rounded shadow table-auto">
         <thead className="bg-gray-100">

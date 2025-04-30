@@ -25,7 +25,8 @@ app.use(session({
 }));
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/stock')
+// mongoose.connect('mongodb://localhost:27017/stock')
+mongoose.connect('mongodb+srv://manzidallas22:2KGKljiEB7rZfSVp@cluster0.uer7e.mongodb.net/')
   .then(() => console.log('MongoDB connected successfully'))
   .catch((error) => console.log('MongoDB connection failed', error));
 
