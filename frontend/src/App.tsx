@@ -1,16 +1,17 @@
-// App.jsx
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import Login from './pages/Login';
+
+import './App.css'; 
+import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
 import AddItem from './pages/AddItem';
 import AddUser from './pages/AddUser';
+import RemainingStock from './pages/RemainingStock';
 import StockInForm from './pages/StockInForm';
 import StockOutForm from './pages/StockOutForm';
-import Layout from './components/Layout';
-import RemainingStock from './pages/RemainingStock';
-import './App.css'; 
+import Home from './pages/Home';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -51,6 +52,14 @@ function App() {
           <>
             <Route
               path="/"
+              element={
+                <Layout>
+                  <Home user={user} />
+                </Layout>
+              }
+            />
+            <Route
+              path="/products"
               element={
                 <Layout>
                   <Dashboard user={user} />

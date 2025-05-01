@@ -1,9 +1,5 @@
-// src/pages/AddItem.jsx
 import { useState } from 'react';
 import axios from 'axios';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-
 
 function AddItem() {
   const [form, setForm] = useState({
@@ -27,16 +23,16 @@ function AddItem() {
   };
 
   return (
-    <div className="w-[40vh]">
+    <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded">
       <h2 className="text-xl font-semibold mb-4">Add Item</h2>
       {message && <p className="mb-3 text-green-600">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
-        <Input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="w-full" required />
-        <Input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price" className="w-full" required />
-        <Input name="description" value={form.description} onChange={handleChange} placeholder="Description" className="w-full" required />
-        <Input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="w-full" required />
-        <Input name="quantity" type="number" value={form.quantity} onChange={handleChange} placeholder="Quantity" className="w-full" required />
-        <Button type="submit" className="bg-green-600 text-white px-4 py-6 w-full rounded-xl">Add Item</Button>
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Name" className="w-full border p-2" required />
+        <input name="price" type="number" value={form.price} onChange={handleChange} placeholder="Price" className="w-full border p-2" required />
+        <input name="description" value={form.description} onChange={handleChange} placeholder="Description" className="w-full border p-2" required />
+        <input name="category" value={form.category} onChange={handleChange} placeholder="Category" className="w-full border p-2" required />
+        <input name="quantity" type="number" value={form.quantity} onChange={handleChange} placeholder="Quantity" className="w-full border p-2" required />
+        <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">Add Item</button>
       </form>
     </div>
   );
