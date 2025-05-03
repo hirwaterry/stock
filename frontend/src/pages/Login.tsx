@@ -61,7 +61,7 @@ function Login({ onLogin }) {
             </div>
           </div>
           <button
-            className="w-full bg-gray-100 text-black rounded-xl py-4 hover:bg-gray-200"
+            className="w-full bg-black-100 text-white rounded-xl py-4 hover:bg-gray-200"
             type="submit"
           >
             Login
