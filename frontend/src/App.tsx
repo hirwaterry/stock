@@ -12,6 +12,7 @@ import RemainingStock from './pages/RemainingStock';
 import StockInForm from './pages/StockInForm';
 import StockOutForm from './pages/StockOutForm';
 import Home from './pages/Home';
+import Stock from './pages/Stock';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -71,6 +72,14 @@ function App() {
               element={
                 <Layout>
                   <AddItem />
+                </Layout>
+              }
+            />
+            <Route
+              path="/stock"
+              element={
+                <Layout>
+                  <Stock />
                 </Layout>
               }
             />

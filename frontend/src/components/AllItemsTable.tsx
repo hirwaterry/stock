@@ -6,12 +6,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from './Table';
 import Modal from 'react-modal';
 import AddItem from './AddItems';
-import { Add01Icon } from 'hugeicons-react';
+import { Add01Icon, Cancel01Icon } from 'hugeicons-react';
 // Define the Item type based on API response
 interface Item {
   _id: string;
   name: string;
   category: string;
+  description: string;
+  price: number;
+  quantity: number;
 }
 
 // Define columns for DataTable (with checkbox and sorting)
@@ -68,6 +71,52 @@ export const columns: ColumnDef<Item>[] = [
       </span>
     ),
   },
+  {
+    accessorKey: 'description',
+    header: ({ column }) => (
+      <button
+        className="flex items-center space-x-1 font-semibold"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        <span>Description</span>
+        {column.getIsSorted() === 'asc' && <span>↑</span>}
+        {column.getIsSorted() === 'desc' && <span>↓</span>}
+      </button>
+    ),
+    cell: ({ row }) => (
+      <span className="inline-block rounded bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-800">
+        {row.getValue('description')}
+      </span>
+    ),
+  },
+  {
+    accessorKey: 'price',
+    header: ({ column }) => (
+      <button
+        className="flex items-center space-x-1 font-semibold"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        <span>Price</span>
+        {column.getIsSorted() === 'asc' && <span>↑</span>}
+        {column.getIsSorted() === 'desc' && <span>↓</span>}
+      </button>
+    ),
+    cell: ({ row }) => <div>${row.getValue('price').toFixed(2)}</div>,
+  },
+  {
+    accessorKey: 'quantity',
+    header: ({ column }) => (
+      <button
+        className="flex items-center space-x-1 font-semibold"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        <span>Quantity</span>
+        {column.getIsSorted() === 'asc' && <span>↑</span>}
+        {column.getIsSorted() === 'desc' && <span>↓</span>}
+      </button>
+    ),
+    cell: ({ row }) => <div>{row.getValue('quantity')}</div>,
+  },
 ];
 
 const AllItemsTable = () => {
@@ -123,7 +172,7 @@ const AllItemsTable = () => {
 
       {loading ? (
         <div className="flex justify-center py-10">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-black border-t-transparent"></div>
         </div>
       ) : (
         <div className="rounded-lg bg-white shadow-sm">
@@ -149,7 +198,7 @@ const AllItemsTable = () => {
       >
         <div className="bg-white border relative p-6 rounded-xl shadow-lg">
           <AddItem />
-          <button onClick={() => setIsModalOpen(false)} className="mt-4 absolute right-2 top-0 px-4 py-2 rounded text-black">X</button>
+          <button onClick={() => setIsModalOpen(false)} className="mt-4 absolute right-2 top-0 px-4 py-2 rounded text-black"><Cancel01Icon/></button>
         </div>
       </Modal>
     </div>
