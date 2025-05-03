@@ -36,7 +36,7 @@ function Login({ onLogin }) {
           <Input 
             placeholder='username@user' 
             type="text"
-            className='p-2 h-13 mb-3 w-full'
+            className='p-2 h-13 mb-3 w-full bg-gray-100'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -46,7 +46,7 @@ function Login({ onLogin }) {
             <Input 
               placeholder={`Password`} 
               type={showPassword ? 'text' : 'password'}
-              className='p-2 h-13 w-full'
+              className='p-2 h-13 w-full bg-gray-100'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -61,7 +61,7 @@ function Login({ onLogin }) {
             </div>
           </div>
           <button
-            className="w-full bg-black-100 text-white rounded-xl py-4 hover:bg-gray-200"
+            className="w-full bg-black text-white rounded-xl py-4"
             type="submit"
           >
             Login
