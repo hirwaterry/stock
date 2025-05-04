@@ -7,12 +7,13 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import AddItem from './pages/AddItem';
-import AddUser from './pages/AddUser';
+import AddUser from './components/AddUser';
 import RemainingStock from './pages/RemainingStock';
 import StockInForm from './pages/StockInForm';
 import StockOutForm from './pages/StockOutForm';
 import Home from './pages/Home';
 import Stock from './pages/Stock';
+import Users from './pages/Users';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -87,7 +88,7 @@ function App() {
               path="/add-user"
               element={
                 <Layout>
-                  <AddUser />
+                  <Users />
                 </Layout>
               }
             />

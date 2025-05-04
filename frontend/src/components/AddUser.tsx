@@ -21,13 +21,13 @@ function AddUser() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded">
+    <div className="p-6 mx-auto">
       <h2 className="text-xl font-semibold mb-4">Add User</h2>
       {message && <p className="mb-3 text-green-600">{message}</p>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <input name="username" value={form.username} onChange={handleChange} placeholder="Username" className="w-full border p-2" required />
         <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Password" className="w-full border p-2" required />
-        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Add User</button>
+        <button type="submit" className="bg-green-600 w-full text-white px-4 py-2 rounded-xl">Add User</button>
       </form>
     </div>
   );
