@@ -9,13 +9,11 @@ import AddUser from '../components/AddUser';
 import { Add01Icon, Cancel01Icon } from 'hugeicons-react';
 import { DataTable } from '@/components/Table';
 
-// Define the User type based on API response
 interface User {
   _id: string;
   username: string;
 }
 
-// Define columns for DataTable (with checkbox and sorting)
 export const columns: ColumnDef<User>[] = [
   {
     id: 'select',

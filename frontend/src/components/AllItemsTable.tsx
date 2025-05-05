@@ -6,8 +6,8 @@ import { ColumnDef } from '@tanstack/react-table';
 import { DataTable } from './Table';
 import Modal from 'react-modal';
 import AddItem from './AddItems';
-import { Add01Icon, Cancel01Icon } from 'hugeicons-react';
-// Define the Item type based on API response
+import { Add01Icon, Cancel01Icon, Edit01Icon, Delete01Icon } from 'hugeicons-react';
+
 interface Item {
   _id: string;
   name: string;
@@ -15,9 +15,9 @@ interface Item {
   description: string;
   price: number;
   quantity: number;
+  action: string;
 }
 
-// Define columns for DataTable (with checkbox and sorting)
 export const columns: ColumnDef<Item>[] = [
   {
     id: 'select',
@@ -117,6 +117,29 @@ export const columns: ColumnDef<Item>[] = [
     ),
     cell: ({ row }) => <div>{row.getValue('quantity')}</div>,
   },
+  {
+    accessorKey: 'action',
+    header: () => <span className="font-semibold">Actions</span>,
+    cell: ({ row }) => (
+      <div className="flex space-x-2">
+        <button
+          onClick={() => handleEdit(row.original)}
+          className="p-1 text-blue-600 hover:text-blue-800"
+          title="Edit"
+        >
+          <Edit01Icon size={18} />
+        </button>
+        <button
+          onClick={() => handleDelete(row.original._id)}
+          className="p-1 text-red-600 hover:text-red-800"
+          title="Delete"
+        >
+          <Delete01Icon size={18} />
+        </button>
+      </div>
+    ),
+    enableSorting: false,
+  },
 ];
 
 const AllItemsTable = () => {
@@ -126,6 +149,7 @@ const AllItemsTable = () => {
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState<Record<string, boolean>>({});
+  const [editItem, setEditItem] = useState<Item | null>(null);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -145,7 +169,24 @@ const AllItemsTable = () => {
     fetchItems();
   }, []);
 
-  // Filter items based on search input
+  const handleEdit = (item: Item) => {
+    setEditItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    if (confirm('Are you sure you want to delete this item?')) {
+      try {
+        await axios.delete(`http://localhost:4000/items/${id}`, {
+          withCredentials: true,
+        });
+        setItems(items.filter((item) => item._id !== id));
+      } catch (err) {
+        setError('Failed to delete item');
+      }
+    }
+  };
+
   const filteredItems = items.filter(
     (item) =>
       item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -164,7 +205,15 @@ const AllItemsTable = () => {
             onChange={(e) => setSearch(e.target.value)}
             className="rounded-xl border border-gray-300 px-3 w-[40vh] py-5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-500/80"
           />
-          <button className='px-4 w-40 font-light flex gap-2 py-5 rounded-xl bg-gray-200 text-black' onClick={() => setIsModalOpen(true)} ><Add01Icon /> Add New </button>
+          <button 
+            className='px-4 w-40 font-light flex gap-2 py-5 rounded-xl bg-gray-200 text-black' 
+            onClick={() => {
+              setEditItem(null);
+              setIsModalOpen(true);
+            }}
+          >
+            <Add01Icon /> Add New
+          </button>
         </div>
       </div>
 
@@ -191,14 +240,25 @@ const AllItemsTable = () => {
 
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
-        contentLabel="Add User Modal"
-        className="fixed inset-0 flex items-center justify-center z-50" // Tailwind classes for modal
-        overlayClassName="fixed inset-0 bg-gray-400/40 backdrop-blur-sm bg-opacity-50" // Tailwind classes for overlay
+        onRequestClose={() => {
+          setIsModalOpen(false);
+          setEditItem(null);
+        }}
+        contentLabel="Add/Edit Item Modal"
+        className="fixed inset-0 flex items-center justify-center z-50"
+        overlayClassName="fixed inset-0 bg-gray-400/40 backdrop-blur-sm bg-opacity-50"
       >
         <div className="bg-white border relative p-6 rounded-xl shadow-lg">
-          <AddItem />
-          <button onClick={() => setIsModalOpen(false)} className="mt-4 absolute right-2 top-0 px-4 py-2 rounded text-black"><Cancel01Icon/></button>
+          <AddItem item={editItem} />
+          <button 
+            onClick={() => {
+              setIsModalOpen(false);
+              setEditItem(null);
+            }} 
+            className="mt-4 absolute right-2 top-0 px-4 py-2 rounded text-black"
+          >
+            <Cancel01Icon />
+          </button>
         </div>
       </Modal>
     </div>
